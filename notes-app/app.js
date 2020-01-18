@@ -8,7 +8,7 @@ const greenMsg = "Success!";
 
 console.log(chalk.green(greenMsg));
 
-console.log(chalk.bold.inverse.green("Success!"));
+console.log(chalk.bold.inverse.blue("Error!"));
 
 
 
