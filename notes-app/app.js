@@ -1,5 +1,25 @@
-const fs = require("fs");
+const getNotes = require("./notes.js");
 
-// fs.writeFileSync("notes.txt", "My name is Robin.");
+const msg = getNotes();
 
-fs.appendFileSync("notes.txt", " I live in Barmer and I am 35 years old.");
+console.log(msg);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const add = require("./utils");
+
+// const sum = add(4, -2);
+
+// console.log(sum);
