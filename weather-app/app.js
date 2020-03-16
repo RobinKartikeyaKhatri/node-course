@@ -1,5 +1,5 @@
-const request = require("request");
 const geocode = require("./utils/geocode");
+const forecast = require("./utils/forecast");
 
 // const url = 'https://api.darksky.net/forecast/80518481f86abfa9dcb41a384f367dfd/25.746090,71.397453'
 
@@ -16,25 +16,26 @@ const geocode = require("./utils/geocode");
 
 
 
-// const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1Ijoicm9iaW5rYXJ0aWtleWEiLCJhIjoiY2s3c2Z2OG1oMGNxbjNycGdzbnAyYzZ6ZSJ9.mnuYyiqslJo0Fx4nh_EbEw&limit=1';
-
-// request({ url: geocodeURL, json: true}, (error, response) => {
-//     if (error) {
-//         console.log("Unable to connect to location services!");
-//     } else if (response.body.features.length === 0) {
-//         // do something
-//         console.log("Unable to find location. Try another search!");
-//     } else {
-//         const latitude = response.body.features[0].center[1];
-//         const longitude = response.body.features[0].center[0];
-//         console.log(latitude, longitude);
-//     }
-// });
-
-
-
 
 geocode("Boston", (error, data) => {
     console.log("Error", error);
     console.log("Data", data);
+});
+
+
+//
+// Goal: Create a reusable function for getting the forecast
+//
+// 1. Setup the "forecast" function in utils/forecast.js
+// 2. Require the function in app.js and call it as shown below
+// 3. The forecast function should have three potential calls to callback:
+//    - Low level error, pass string for error
+//    - Coordinate error, pass string for error
+//    - Success, pass forecast string for data (same format as from before)
+
+
+
+forecast(-75.7088, 44.1545, (error, data) => {
+    console.log('Error', error)
+    console.log('Data', data)
 });
