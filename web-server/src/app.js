@@ -56,7 +56,7 @@ app.get("/weather", (req, res) => {
 app.get("/help/*", (req, res) => {
     res.render("404", {
         title: "404",
-        name: "Andrew Mead",
+        name: "Robin Kartikeya Khatri",
         errorMessage: "Help articles not found"
     })
 });
@@ -64,7 +64,7 @@ app.get("/help/*", (req, res) => {
 app.get("*", (req, res) => {
     res.render("404", {
         title: "404",
-        name: "Andrew Mead",
+        name: "Robin Kartikeya Khatri",
         errorMessage: "Page not found"
     });
 });
