@@ -2,13 +2,6 @@ const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
 
-// 
-// Goal: Create a partial for footer
-// 
-// 1. Setup the template for the footer partial "Created by Some Name"
-// 2. Render the partial at the bottom of all three pages
-// 3. Test your work by visiting all three pages
-
 const app = express();
 
 // Define paths for Express config
@@ -47,9 +40,36 @@ app.get("/help", (req, res) => {
 });
 
 app.get("/weather", (req, res) => {
+    if (!req.query.address) {
+        return res.send({
+            error: "You must provide an address"
+        });
+    }
+
     res.send({
         forecast: "It is hot out there",
-        location: "Barmer, Barmer. Rajasthan"
+        location: "Barmer, Barmer. Rajasthan",
+        address: req.query.address
+    });
+});
+
+// 
+// Goal: Update weather endpoint to accept address
+// 
+// 1. No address? Send back an error message
+// 2. Address? Send back the static JSON
+//      - Add address property onto JSON which returns the provided address
+// 3. Test /weather and /weather?address=philadelphia
+
+app.get("/products", (req, res) => {
+    if (!req.query.search) {
+        return res.send({
+            error: "You must provide a search term"
+        })
+    }
+    console.log(req);
+    res.send({
+        products: []
     });
 });
 
