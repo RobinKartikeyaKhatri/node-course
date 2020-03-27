@@ -48,7 +48,7 @@ app.get("/weather", (req, res) => {
         });
     }
 
-    geocode(req.query.address, (error, { latitude, longitude, location }) => {
+    geocode(req.query.address, (error, { latitude, longitude, location } = {}) => {
         if (error) {
             return res.send({error: error})
         }
@@ -66,14 +66,6 @@ app.get("/weather", (req, res) => {
         });
     });
 });
-
-// 
-// Goal: Wire up /weather
-// 
-// 1. Require geocode/forecast into app.js
-// 2. Use the address to geocode
-// 3. Use the coordinates to get forecast
-// 4. Send back the rest forecast and location
 
 app.get("/products", (req, res) => {
     if (!req.query.search) {
