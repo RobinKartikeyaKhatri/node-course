@@ -6,12 +6,22 @@ mongoose.connect("mongodb://127.0.0.1:27017/task-manager-api", {
     useCreateIndex: true
 });
 
+// 
+// Goal: Add a password field to User
+// 
+// 1. Setup the field as a required string
+// 2. Ensure the length is greater than 6
+// 3. Trim the password
+// 4. Ensure that password doesn't contain "password"
+// 5. Test your work
+
+
 const User = mongoose.model("User", {
     name: {
         type: String,
         required: true,
         trim: true
-    },
+    },  
     email: {
         type: String,
         required: true,
@@ -20,6 +30,17 @@ const User = mongoose.model("User", {
         validate(value) {
             if (!validator.isEmail(value)) {
                 throw new Error("Email is invalid")
+            }
+        }
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: 7,
+        trim: true,
+        validate(value) {
+            if (value.toLowerCase().includes("password")) {
+                throw new Error('Password cannot contains "password"');
             }
         }
     },
@@ -34,36 +55,47 @@ const User = mongoose.model("User", {
     }
 });
 
-const me = new User({
-    name: "    Andrew   ",
-    email: "MYEMAIL@MEAD.IO    "
-});
+// const me = new User({
+//     name: "    Andrew   ",
+//     email: "MYEMAIL@MEAD.IO    ",
+//     password: "phone098!"
+// });
 
-me.save().then(() => {
-    console.log(me);
-}).catch((error) => {
-    console.log("Error!", error);
-});
+// me.save().then(() => {
+//     console.log(me);
+// }).catch((error) => {
+//     console.log("Error!", error);
+// });
+
+
+// 
+// Goal: Add validation and sanitization to task
+// 
+// 1. Trim the description and make it required
+// 2. Make completed optional and default it false
+// 3. Test your work with and without errors
 
 const Task = mongoose.model("Task", {
     description: {
-        type: String
+        type: String,
+        trim: true,
+        required: true
     },
     completed: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 });
 
 
-// const task = new Task({
-//     description: "Learn the Mongoose Library",
-//     completed: false
-// });
+const task = new Task({
+    description: "   Eat lunch"
+});
 
-// task.save().then(() => {
-//     console.log(task);
-// }).catch((error) => {
-//     console.log("Error", error);
-// });
+task.save().then(() => {
+    console.log(task);
+}).catch((error) => {
+    console.log("Error", error);
+});
 
 
