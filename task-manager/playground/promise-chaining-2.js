@@ -1,20 +1,33 @@
-// 
-// Goal: Mess around with promise chaining
-// 
-// 1. Create promise-chaining-2.js
-// 2. Load in mongoose and task model
-// 3. Remove a given task by id
-// 4. Get and print the total number of incomplete task
-// 5. Test your work!
-
 require("../src/db/mongoose");
 const Task = require("../src/models/task");
 
-Task.findByIdAndDelete("5e8b13e18a03d0241461444e").then((removed) => {
-    console.log(removed);
-    return Task.countDocuments({completed: false})
-}).then((result) => {
-    console.log(result)
-}).catch((error) => {
-    console.log(error);
+// Task.findByIdAndDelete("5e8b13e18a03d0241461444e").then((removed) => {
+//     console.log(removed);
+//     return Task.countDocuments({completed: false})
+// }).then((result) => {
+//     console.log(result)
+// }).catch((error) => {
+//     console.log(error);
+// });
+
+// 
+// Goal: Use async/await
+// 
+// 1. Create deleteTaskAndCount as a async function
+//      - Accept id of task to remove
+// 2. Use await to delete task and count up incomplete tasks
+// 3. Return the count
+// 4. Call the function and attach then/catch to results
+// 5. Test your work
+
+const deleteTaskAndCount = async (id) => {
+    const task = await Task.findByIdAndDelete(id);
+    const count = await Task.countDocuments({completed: false});
+    return count;
+}
+
+deleteTaskAndCount("5e8b12ce1c106d246c814fa3").then((count) => {
+    console.log(count);
+}).catch((e) => {
+    console.log(e);
 });
