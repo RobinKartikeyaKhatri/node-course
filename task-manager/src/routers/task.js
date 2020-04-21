@@ -1,9 +1,14 @@
 const express = require("express");
 const Task = require("../models/task");
+const auth = require("../middleware/auth");
 const router = new express.Router();
 
-router.post("/tasks", async (req, res) => {
-    const task = new Task(req.body);
+router.post("/tasks", auth, async (req, res) => {
+    const task = new Task({
+        ...req.body,
+        owner: req.user._id
+    })
+
     try {
         await task.save();
         res.status(201).send(task);
@@ -35,14 +40,6 @@ router.get("/tasks/:id", async (req, res) => {
         res.status(500).send()
     }
 });
-
-// 
-// Goal: Change how tasks are updated
-// 
-// 1. Find the task
-// 2. Alter the task properties
-// 3. Save the task
-// 4. Test your work by updating a task from Postman
 
 router.patch("/tasks/:id", async (req, res) => {
     const updates = Object.keys(req.body);
